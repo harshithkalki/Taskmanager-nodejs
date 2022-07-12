@@ -1,13 +1,22 @@
 //imports
 const express = require('express');
-require('./db/connect');
-const tasks=require('./routes/tasks')
-
+const tasks=require('./routes/tasks');
+const connectDB=require('./db/connect');
+const Task= require('./models/Task');
+require('dotenv').config();
 //setup
 const app=express();
-app.listen(3000,()=>{
-    console.log("server up and running...");
-});
+
+const start = async()=>{
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(3000,()=>console.log("server up and running..."));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+start();
 
 //middleware
 app.use(express.static('public'));
