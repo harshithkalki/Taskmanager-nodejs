@@ -1,21 +1,13 @@
 //imports
 const express = require('express');
-const mongoose=require('mongoose');
+require('./db/connect');
 const tasks=require('./routes/tasks')
 
 //setup
 const app=express();
-const dburl='mongodb://localhost:27017/taskmanager';
-
-//database
-mongoose.connect(dburl)
-.then((res)=>{
-    console.log("server connected");
-    app.listen(3000);
-})
-.catch((err)=>{
-    console.log(err);
-})
+app.listen(3000,()=>{
+    console.log("server up and running...");
+});
 
 //middleware
 app.use(express.static('public'));
